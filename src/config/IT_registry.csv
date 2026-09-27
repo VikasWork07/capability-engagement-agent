@@ -1,0 +1,3 @@
+IT_Component,Contains,Project_JIRA,Delivery_Team
+ETL,ETL|Extract|Transform|Load,ETLPROJ,Data Engineering
+Customer Data,Customer Data|CDP|Customer Profile|Customer Data Services,CDP,Customer Data Platform Team
