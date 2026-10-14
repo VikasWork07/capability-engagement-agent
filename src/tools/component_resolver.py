@@ -81,7 +81,7 @@ def resolve_components(
     registry_text = format_registry(registry)
 
     model = ChatGoogleGenerativeAI(
-        model="gemini-3.7-flash",
+        model="gemini-3.5-flash",
         temperature=0,
     )
 

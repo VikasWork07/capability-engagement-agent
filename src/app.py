@@ -118,6 +118,7 @@ if agent.is_interrupted and agent.interrupt_details:
     st.subheader("Approval Required")
     try:
         df_tickets = pd.DataFrame(agent.interrupt_details)
+        print(f"pandas dataframe: {df_tickets}")
         st.dataframe(df_tickets)
     except Exception as exc:
         st.error(

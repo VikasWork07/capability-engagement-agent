@@ -69,11 +69,11 @@ class Agent:
     def _build_agent(self):
 
         model = ChatGoogleGenerativeAI(
-            model="gemini-3.7-flash",
+            model="gemini-3.8-flash",
             temperature=1.0,
         )
 
-        checkpointer = self.get_checkpointer()
+        #checkpointer = self.get_checkpointer()
 
         human_in_loop = HumanInTheLoopMiddleware(
             interrupt_on={
@@ -93,11 +93,11 @@ class Agent:
         )
 
         model_call_limit = ModelCallLimitMiddleware(
-            run_limit=10,
+            run_limit=8,
             exit_behavior="end",
         )
 
-        checkpointer = checkpointer
+        checkpointer = self.get_checkpointer()
 
         tools = [
             get_confluence_page,
@@ -236,7 +236,12 @@ class Agent:
 
             actions = interrupts[0].value.get("action_requests", [])
             self.is_interrupted = True
-            self.interrupt_details = [req["args"] for req in actions if "args" in req]
+            print(f"Full interrupt: payload= {result}")
+            print(f"actions: payload= {actions}")
+            jira_tickets = actions[0]["args"]["tickets"] if "args" in actions[0] and "tickets" in actions[0]["args"] else []
+            #self.interrupt_details = [req["args"] for req in actions if "args" in req]
+            self.interrupt_details = jira_tickets
+            print(f"Interrupt details: {self.interrupt_details}")
             self.isCompleted = False
             return
             #self.interrupt_details = actions
